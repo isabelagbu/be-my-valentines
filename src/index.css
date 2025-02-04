@@ -1,0 +1,366 @@
+body {
+  background-color: #F5D0CA;
+  margin: 0;
+  overflow: hidden;
+}
+
+h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
+  font-family: "Pinyon Script", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #3f3f3fbf;
+}
+
+/* ENVELOPE CSS */
+.envelope-lines {
+  width: 100vw; /* Full width of the viewport */
+  max-width: 100%; /* Ensures it doesn’t overflow */
+  height: auto; /* Maintains aspect ratio */
+  display: block; /* Removes extra spacing under image */
+}
+
+.person-name {
+  position: absolute;
+  top: 7vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(16px, 5vw, 100px);
+  transition: top 0.2s ease-in-out;
+}
+
+.open-button {
+  position: absolute;  /* Ensure positioning */
+  left: 50%;  /* Move its left edge to the center */
+  transform: translateX(-50%); /* Shift it back by half its width */
+  font-size: clamp(16px, 5vw, 20px);
+  color: black;
+  width: 10%;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  padding-right: 10px;
+  background-color: #FFF1EF;
+  border: 1px solid #635A5A;
+  border-radius: 6px;
+}
+
+/*Transition*/
+@keyframes fadeInBright {
+  0% {
+    opacity: 0;
+    filter: brightness(3); /* Extra bright at start */
+    transform: scale(1.2); /* Slight zoom effect */
+  }
+  50% {
+    opacity: 0.5;
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1); /* Normal brightness */
+    transform: scale(1);
+  }
+}
+
+/* Apply animation to the component */
+.fade-in-bright {
+  animation: fadeInBright 1.2s ease-out;
+}
+
+
+/* CARD CSS */
+.card-background {
+  background-color: #FFF1EF;
+  border-radius: 10px; 
+  padding: 30px;
+  min-height: 87vh;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+.note {
+  padding-bottom: 30px;
+  max-width: 30%;
+}
+
+/* Container for Text & Image */
+.text-image-container {
+  display: flex; /* Enable Flexbox */
+  flex-direction: row; /* Keep items side by side */
+  align-items: center; /* Vertically center text & image */
+  justify-content: center; /* Horizontally center text & image */
+  flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+  text-align: center;
+  height: 100%; /* Ensure it takes up full container height */
+}
+
+/* Valentine's Question Styling */
+.valentines-question {
+  font-size: clamp(18px, 5vw, 60px); /* Responsive text size */
+  margin: 0;
+  display: inline-block;
+}
+
+.image-wrapper {
+  height: 10%;
+  width: 10%;
+  display: inline-block;
+  margin-top: -20px;
+}
+
+.button-container {
+  display: flex; /* Enable Flexbox */
+  justify-content: center; /* Center buttons horizontally */
+  align-items: center; /* Align buttons in the middle */
+  gap: 15%; /* Add spacing between buttons */
+  margin-top: 20px; /* Adjust space above the buttons */
+}
+
+
+.yes-no-btn, .send-button, .generate-button  {
+  font-size: clamp(18px, 5vw, 40px);
+  height: 50px;
+  width: 15%;
+  background-color: #F5D0CA;
+  border: 1px solid #635A5A;
+  outline: 5px solid #C28E8E;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.yes-no-btn-small-font {
+  font-size: 16px;
+}
+
+/* Hover effect for Yes button */
+#no-btn:hover {
+  outline: 5px solid #CA0F28;
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+#yes-btn:hover {
+  outline: 5px solid #587A51;
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+
+.sender-name {
+  font-size: clamp(18px, 5vw, 40px);
+  position: absolute;
+  bottom: 40px; /* Distance from the bottom */
+  right: 90px; /* Distance from the right */
+  font-family: "Pinyon Script", serif;
+}
+
+
+@keyframes floatHearts {
+  0% {
+    transform: translateY(100vh) scale(0.5); /* Start from just below the screen */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200vh) scale(1); /* Move beyond the top of the screen */
+    opacity: 0;
+  }
+}
+
+/* Heart Styling */
+
+/* Floating Hearts Container */
+.floating-hearts-container {
+  position: fixed; /* Ensures hearts stay within the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Prevents hearts from interfering with clicks */
+  z-index: 1000; /* Keeps hearts above other elements */
+}
+
+/* Heart Animation */
+@keyframes floatHearts {
+  0% {
+    transform: translateY(0vh) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Heart Styling */
+.floating-heart {
+  position: absolute;
+  bottom: -10vh; /* Start slightly below the viewport */
+  font-size: 24px;
+  opacity: 0;
+  animation: floatHearts 15s linear infinite;
+  transform-origin: center;
+}
+
+
+/* LEAVE A MESSAGE CSS */
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+  justify-content: center; /* Centers content vertically */
+  text-align: center; /* Centers text inside */
+  width: 100%;
+}
+
+/* Message Box */
+.message-box {
+  width: 100%;
+  max-width: 500px;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+  margin-top: 15px;
+  display: block;
+}
+
+/* Flexbox for button container */
+.nothanks-send-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Places elements on opposite sides */
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+  margin-top: 20px;
+}
+
+/* No Thanks Link (Aligned Left) */
+.no-thanks {
+  color: #D72638;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Center Send Button */
+.send-button {
+  font-size: clamp(18px, 5vw, 30px);
+  margin: 0 auto; /* Centers within the container */
+  margin-left: 140px;
+  padding: 10px;
+  padding-right: 70px;
+}
+
+.no-thanks:hover {
+  color: #B61C2B;
+}
+
+/* Send Button */
+.send-button:hover {
+  background-color: #FFC1CC;
+}
+
+/* SENDER FORM */
+/* Title */
+.form-title {
+  font-size: clamp(18px, 5vw, 40px);
+  text-align: center;
+  color: #D72638;
+  margin-bottom: 20px;
+}
+
+.valentine-form {
+  width: 60%;
+  text-align: right;
+  margin-left: -200px;
+}
+
+/* Form Groups */
+.form-group {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.form-group label {
+  font-size: clamp(18px, 5vw, 24px);
+  color: #3F3F3F;
+  margin-bottom: 5px;
+  text-align: right;
+  margin-right: 50px;
+  width: 30%;
+}
+
+/* Inputs */
+.input-field {
+  width: 80%;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+
+input:focus, textarea:focus {
+  border-color: #C28E8E;/* Change border color */
+  outline: none; /* Removes default outline */
+}
+
+/* Message Box */
+.message-box-2 {
+  width: 81%;
+  height: 170px;
+  resize: none;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Center the button */
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  width: 100%; /* Ensures it takes full width */
+  margin-top: 40px;
+}
+
+/* Button Styling */
+.generate-button {
+  background-color: #F5D0CA;
+  width: 200px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: 2px solid #C28E8E;
+  transition: all 0.3s ease;
+  margin-left: 220px;
+}
+
+.unique-link-container {
+  margin-top: 20px;
+  overflow:hidden;
+
+}
+
+#unique-link-label {
+ padding: 0;
+ margin-right: 50px;
+ min-width: 200px;
+}
+
+#unique-link {
+  color: rgb(82, 82, 255);
+  text-align: left;
+
+}
