@@ -10,7 +10,7 @@ const SenderForm = () => {
     const [message, setMessage] = useState("");
     const [uniqueLink, setUniqueLink] = useState("");
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const handleGenerateLink = (e) => {
         e.preventDefault();
@@ -22,18 +22,20 @@ const SenderForm = () => {
         const encodedData = btoa(JSON.stringify(formData));
 
         // Create shareable link
-        const link = `${window.location.origin}/valentine/closed-envelope/${encodedData}`;
-        setUniqueLink(link);
+        const link = `/valentine/closed-envelope/${encodedData}`;
+        setUniqueLink(`${window.location.origin}${link}`);
 
         console.log(link)
 
         // Copy to clipboard
-        navigator.clipboard.writeText(link).then(() => {
+        navigator.clipboard.writeText(`${window.location.origin}${link}`).then(() => {
             alert("Link copied! Share it anywhere.");
         });
 
+        console.log(encodedData);
+
         // Navigate to the generated link
-        //navigate(`/valentine/${encodedData}`);
+        // navigate(link);
     };
 
     return (

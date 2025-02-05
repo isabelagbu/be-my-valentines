@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ClosedEnvelope = () => {
+
   const { encodedData } = useParams();
   const [name, setName] = useState("Annabelle"); // Default name
   const [btnText, setBtnText] = useState("Break Seal");
@@ -13,17 +14,17 @@ const ClosedEnvelope = () => {
   // Decode name from URL when component mounts
   useEffect(() => {
     if (encodedData) {
-      try {
-        const decodedJson = atob(encodedData); // Decode Base64
-        const parsedData2 = JSON.parse(decodedJson); // Convert JSON string to object
-        setParsedData(parsedData2);
-        console.log(parsedData2);
-        setName(parsedData2.theirName || "Annabelle");
-      } catch (error) {
-        console.error("Error decoding URL data:", error);
-      }
+        try {
+          console.log(encodedData);
+            const decodedJson = decodeURIComponent(atob(encodedData)); // Decode Base64 safely
+            const parsedData = JSON.parse(decodedJson);
+            setParsedData(parsedData);
+            setName(parsedData.theirName || "Annabelle");
+        } catch (error) {
+            console.error("Error decoding URL data:", error);
+        }
     }
-  }, [encodedData]);
+}, [encodedData]);
 
   const handleUserClick = () => {
     setUserClick((prev) => prev + 1);
