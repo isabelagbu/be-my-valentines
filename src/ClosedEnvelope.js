@@ -4,8 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const ClosedEnvelope = () => {
 
   const { encodedData } = useParams();
-  const [name, setName] = useState("Annabelle"); // Default name
-  const [btnText, setBtnText] = useState("Break Seal");
+  const [name, setName] = useState(""); 
   const [userClick, setUserClick] = useState(0);
   const [heartImg, setHeartImg] = useState("/env-lines-with-heart.png");
   const [parsedData,setParsedData] = useState({});
@@ -15,11 +14,12 @@ const ClosedEnvelope = () => {
   useEffect(() => {
     if (encodedData) {
         try {
-          console.log(encodedData);
+          console.log("encoded url in closed envelope: ", encodedData);
             const decodedJson = decodeURIComponent(atob(encodedData)); // Decode Base64 safely
             const parsedData = JSON.parse(decodedJson);
             setParsedData(parsedData);
-            setName(parsedData.theirName || "Annabelle");
+            setName(parsedData.theirName);
+            console.log("parsed data in closed envelope: ", parsedData);
         } catch (error) {
             console.error("Error decoding URL data:", error);
         }
@@ -33,7 +33,6 @@ const ClosedEnvelope = () => {
   useEffect(() => {
     if (userClick === 1) {
       setHeartImg("/env-lines-with-heart-broken.png");
-      setBtnText("Open");
 
       // Play sound
       const sound = new Audio("/crumple.mp3");
@@ -49,7 +48,7 @@ const ClosedEnvelope = () => {
       <img className="envelope-lines" src={heartImg} alt="Envelope Lines" />
       <h2 className="person-name">For {name}</h2>
       <button className="open-button" onClick={handleUserClick}>
-        {btnText}
+        Break Seal
       </button>
     </div>
   );

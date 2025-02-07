@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
 
 const SenderForm = () => {
     const [name, setName] = useState("");
@@ -8,67 +6,89 @@ const SenderForm = () => {
     const [theirName, setTheirName] = useState("");
     const [youtubeLink, setYoutubeLink] = useState("");
     const [message, setMessage] = useState("");
-    const [uniqueLink, setUniqueLink] = useState("");
+    const [longLink, setLongLink] = useState("");
+    const [shortenedLink, setShortenedLink] = useState("");
 
-    //const navigate = useNavigate();
-
-    const handleGenerateLink = (e) => {
+    const handleGenerateLink = async (e) => {
         e.preventDefault();
 
         // Create JSON object
         const formData = { name, email, theirName, youtubeLink, message };
 
-        // Convert JSON to Base64
-        const encodedData = btoa(JSON.stringify(formData));
+        // Encode JSON to Base64 safely
+        const encodedData = btoa(encodeURIComponent(JSON.stringify(formData)));
 
-        // Create shareable link
-        const link = `/valentine/closed-envelope/${encodedData}`;
-        setUniqueLink(`${window.location.origin}${link}`);
+        // Create full long link
+        const longUrl = `${window.location.origin}/valentine/closed-envelope/${encodedData}`;
+        setLongLink(longUrl); // Store original long link first
 
-        console.log(link)
+        console.log("Generated Link:", longUrl);
 
-        // Copy to clipboard
-        navigator.clipboard.writeText(`${window.location.origin}${link}`).then(() => {
-            alert("Link copied! Share it anywhere.");
-        });
+        const requestBody = {
+            url: longUrl,
+            alias: `Val-${Date.now().toString().slice(-6)}` // Ensure alias is max 30 chars
+        };
 
-        console.log(encodedData);
+        try {
+            console.log("TINY URL API KEY: " + process.env.REACT_APP_TINYURL_API_KEY);
+            const response = await fetch(`https://api.tinyurl.com/create?api_token=${process.env.REACT_APP_TINYURL_API_KEY}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody),
+            });
 
-        // Navigate to the generated link
-        // navigate(link);
+            const result = await response.json();
+            if (result?.data?.tiny_url) {
+                setShortenedLink(result.data.tiny_url);
+                console.log("Shortened Link:", result.data.tiny_url);
+
+                // Copy to clipboard
+                navigator.clipboard.writeText(result.data.tiny_url).then(() => {
+                    alert("Shortened link copied! Share it anywhere.");
+                });
+            } else {
+                console.error("Failed to shorten link:", result);
+                setShortenedLink(longUrl); // Fallback to long link
+            }
+        } catch (error) {
+            console.error("Error shortening link:", error);
+            setShortenedLink(longUrl); // Fallback to long link
+        }
     };
 
     return (
         <div className="card-background">
-            <h1 className="form-title">Virtual Valentine’s Card</h1>
             <form className="valentine-form" onSubmit={handleGenerateLink}>
+                <h1 className="form-title">Virtual Valentine’s Card</h1>
                 <div className="form-group">
                     <label>Your Name:</label>
-                    <input type="text" required className="input-field" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input placeholder="Please enter the sender name you want displayed inside the card." type="text" required className="input-field" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label>Your Email:</label>
-                    <input type="email" required className="input-field" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input placeholder="Please enter your email to receive their response." type="email" required className="input-field" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label>Their Name:</label>
-                    <input type="text" required className="input-field" value={theirName} onChange={(e) => setTheirName(e.target.value)} />
+                    <input placeholder="Please enter your Special Persons name" type="text" required className="input-field" value={theirName} onChange={(e) => setTheirName(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label>Youtube Song Link:</label>
-                    <input type="url" className="input-field" value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} />
+                    <input placeholder="Please enter YouTube Song Link that plays when card is opened. (optional)" type="url" className="input-field" value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} />
                 </div>
                 <div className="form-group" id="val-msg-div">
                     <label id="msg-box-label">Custom Message:</label>
-                    <textarea className="message-box-2" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                    <textarea placeholder="Please enter a short message to your Special Person (optional but highly recommend)" className="sender-form-message-box" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
                 </div>
                 <div className="button-container">
                     <button type="submit" className="generate-button">Generate Unique Link</button>
                 </div>
-                {uniqueLink && (
+                {longLink && (
                     <div className="form-group unique-link-container">
                         <label id="unique-link-label">Your Unique Link: </label>
-                        <a id="unique-link" href={uniqueLink} target="_blank" rel="noopener noreferrer">{uniqueLink}</a>
+                        <a className="unique-link" href={shortenedLink || longLink} target="_blank" rel="noopener noreferrer">
+                            {shortenedLink || longLink}
+                        </a>
                     </div>
                 )}
             </form>

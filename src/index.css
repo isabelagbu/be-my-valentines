@@ -4,12 +4,13 @@ body {
   overflow: hidden;
 }
 
-h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
+h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button {
   font-family: "Pinyon Script", serif;
   font-weight: 400;
   font-style: normal;
   color: #3f3f3fbf;
 }
+
 
 /* ENVELOPE CSS */
 .envelope-lines {
@@ -29,18 +30,21 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 }
 
 .open-button {
-  position: absolute;  /* Ensure positioning */
-  left: 50%;  /* Move its left edge to the center */
-  transform: translateX(-50%); /* Shift it back by half its width */
-  font-size: clamp(16px, 5vw, 20px);
+  position: absolute; 
+  left: 50%;  
+  transform: translateX(-50%);
+  font-size: clamp(12px, 4vw, 20px); /* ✅ Adjust font size dynamically */
   color: black;
-  width: 10%;
-  padding-top: 5px;
-  padding-bottom: 2px;
-  padding-right: 10px;
+  width: max-content; /* ✅ Ensures button adjusts to text */
+  max-width: 50%; /* ✅ Prevents excessive width */
+  white-space: nowrap; /* ✅ Prevents text from wrapping */
+  overflow: hidden; /* ✅ Prevents text from overflowing */
+  text-overflow: ellipsis; /* ✅ Adds "..." if text gets too long */
+  padding: 5px 40px; /* ✅ Maintains spacing */
   background-color: #FFF1EF;
   border: 1px solid #635A5A;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 /*Transition*/
@@ -69,45 +73,101 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 
 /* CARD CSS */
 .card-background {
+  position: relative;
   background-color: #FFF1EF;
-  border-radius: 10px; 
+  border-radius: 10px;
   padding: 30px;
   min-height: 87vh;
-  margin: 50px;
+  margin: clamp(10px, 5vw, 60px); /* Adjusts margin dynamically */
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
+  overflow: hidden; /* Prevents content from spilling */
+  
+}
+
+/* Prevents card-components from overflowing */
+.card-components {
+  width: 100%;
+  max-width: 60%; /* Ensures it doesn't stretch too wide */
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box; /* Ensures padding doesn't increase the width */
+  overflow-wrap: break-word; /* Prevents long words from overflowing */
+}
+
+/* Adjusts text and form elements for small screens */
+@media (max-width: 500px) {
+  .card-components {
+    max-width: 90vw; /* Allows it to scale down */
+    padding: 10px;
+  }
+
+}
+
+@media (max-width: 1500px) {
+  .card-components {
+    max-width: 65vw; /* Allows it to scale down */
+   
+  }
 }
 
 .note {
-  padding-bottom: 30px;
-  max-width: 30%;
+  padding-bottom: 4%;
+  max-width: 40%;
+  text-align: left;
+  font-size: clamp(12px, 4vw,16px); 
 }
 
 /* Container for Text & Image */
 .text-image-container {
-  display: flex; /* Enable Flexbox */
-  flex-direction: row; /* Keep items side by side */
-  align-items: center; /* Vertically center text & image */
-  justify-content: center; /* Horizontally center text & image */
-  flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+  display: flex; /* ✅ Use Flexbox */
+  flex-direction: row; /* ✅ Keep in a row */
+  align-items: center; /* ✅ Align vertically */
+  justify-content: center; /* ✅ Center horizontally */
   text-align: center;
-  height: 100%; /* Ensure it takes up full container height */
+  height: 100%; /* ✅ Ensure it takes full container height */
 }
 
 /* Valentine's Question Styling */
 .valentines-question {
-  font-size: clamp(18px, 5vw, 60px); /* Responsive text size */
+  font-size: clamp(20px, 5vw, 60px); /* ✅ Responsive text */
   margin: 0;
   display: inline-block;
+  flex-shrink: 0; /* ✅ Prevent shrinking */
 }
 
 .image-wrapper {
-  height: 10%;
-  width: 10%;
   display: inline-block;
-  margin-top: -20px;
+  width: clamp(40px, 10vw, 100px); /* ✅ Dynamically adjust width */
+  height: auto; /* ✅ Maintain aspect ratio */
+  flex-shrink: 0; /* ✅ Prevent shrinking */
+  margin-top: -10px; /* ✅ Reduce space */
+}
+
+/* Red Rose Image */
+.red-rose {
+  width: 70%; /* ✅ Image takes up full wrapper */
+  height: auto; /* ✅ Maintain aspect ratio */
+}
+
+/* ✅ Move the image below text when width is 500px or less */
+@media (max-width: 300px) {
+  .text-image-container {
+    flex-direction: column; /* ✅ Stack items vertically */
+    gap: clamp(10px, 2vh, 20px); /* ✅ Dynamic spacing */
+  }
+
+  .image-wrapper {
+    margin-top: clamp(5px); /* ✅ Add spacing when it moves down */
+  }
+
+  .red-rose {
+    width: 60%; /* ✅ Adjust size to fit */
+  }
+
+
 }
 
 .button-container {
@@ -120,14 +180,21 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 
 
 .yes-no-btn, .send-button, .generate-button  {
-  font-size: clamp(18px, 5vw, 40px);
+  font-size: clamp(20px, 3vw, 30px); /* Adjusted to prevent overflow */
   height: 50px;
-  width: 15%;
+  width: 20%;
   background-color: #F5D0CA;
   border: 1px solid #635A5A;
   outline: 5px solid #C28E8E;
   border-radius: 8px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  padding: 10px 20px;
+  font-weight: bold;
 }
 
 .yes-no-btn-small-font {
@@ -151,10 +218,10 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 
 
 .sender-name {
-  font-size: clamp(18px, 5vw, 40px);
-  position: absolute;
-  bottom: 40px; /* Distance from the bottom */
-  right: 90px; /* Distance from the right */
+  font-size: clamp(18px, 5vw, 30px);
+  position:absolute;
+  top: 93%; /* Distance from the bottom */
+  right: 3%; /* Distance from the right */
   font-family: "Pinyon Script", serif;
 }
 
@@ -228,22 +295,25 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
   resize: none;
   margin-top: 15px;
   display: block;
+  font-family: "Arial", sans-serif;
 }
 
 /* Flexbox for button container */
 .nothanks-send-button-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Places elements on opposite sides */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
   width: 100%;
   max-width: 500px; /* Adjust as needed */
   margin-top: 20px;
+  gap: 15px; /* Adds space between elements */
 }
 
 /* No Thanks Link (Aligned Left) */
 .no-thanks {
   color: #D72638;
-  font-size: 16px;
+  font-size: clamp(11px, 5vw, 20px);
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -251,10 +321,12 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 /* Center Send Button */
 .send-button {
   font-size: clamp(18px, 5vw, 30px);
-  margin: 0 auto; /* Centers within the container */
-  margin-left: 140px;
-  padding: 10px;
-  padding-right: 70px;
+  display: flex; /* Use flex to align text properly */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  width: 30%; /* Ensures it doesn’t shrink too much */
+  white-space: nowrap; /* Prevents text from wrapping */
+  text-align: center; /* Ensures text is centered */
 }
 
 .no-thanks:hover {
@@ -263,44 +335,50 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
 
 /* Send Button */
 .send-button:hover {
-  background-color: #FFC1CC;
+  background-color: #ffc1cd;
 }
 
 /* SENDER FORM */
-/* Title */
 .form-title {
-  font-size: clamp(18px, 5vw, 40px);
+  font-size: clamp(26px, 5vw, 40px);
   text-align: center;
   color: #D72638;
   margin-bottom: 20px;
 }
 
+/* Responsive Form Container */
 .valentine-form {
-  width: 60%;
-  text-align: right;
-  margin-left: -200px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  padding: 20px;
 }
 
 /* Form Groups */
 .form-group {
   display: flex;
-  align-items: center; 
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 /* Labels */
 .form-group label {
-  font-size: clamp(18px, 5vw, 24px);
-  color: #3F3F3F;
+  font-size: clamp(22px, 4vw, 22px);
+  text-align: center;
   margin-bottom: 5px;
-  text-align: right;
-  margin-right: 50px;
-  width: 30%;
+  width: 100%;
+  max-width: 300px; /* Ensures consistency */
+  color: black;
 }
 
+
 /* Inputs */
-.input-field {
-  width: 80%;
+.input-field, .sender-form-message-box {
+  width: 100%;
+  max-width: 400px;
   height: 30px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -308,59 +386,58 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button  {
   font-size: 16px;
 }
 
+.sender-form-message-box {
+  height: 150px; /* Adjust height for text area */
+  font-family: "Arial", sans-serif;
+}
 
+/* Focus Effects */
 input:focus, textarea:focus {
-  border-color: #C28E8E;/* Change border color */
-  outline: none; /* Removes default outline */
+  border-color: #C28E8E;
+  outline: none;
 }
 
-/* Message Box */
-.message-box-2 {
-  width: 81%;
-  height: 170px;
-  resize: none;
-  margin: 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Center the button */
+/* Centered Submit Button */
 .button-container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  width: 100%; /* Ensures it takes full width */
-  margin-top: 40px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-/* Button Styling */
+/* Generate Button */
 .generate-button {
   background-color: #F5D0CA;
-  width: 200px;
+  width: fit-content; /* ✅ Adjusts to text width dynamically */
+  min-width: 120px; /* ✅ Prevents it from getting too small */
+  max-width: 100%; /* ✅ Ensures it doesn’t overflow */
+  padding: 10px 20px; /* ✅ Provides enough spacing inside */
+  margin-bottom: 30px;
+  font-size: clamp(22px, 4vw, 22px); /* ✅ Ensures proper text size scaling */
+  white-space: nowrap; /* ✅ Prevents text from wrapping */
   border: none;
-  padding: 10px 20px;
-  font-size: 20px;
   border-radius: 8px;
   cursor: pointer;
   outline: 2px solid #C28E8E;
   transition: all 0.3s ease;
-  margin-left: 220px;
+  text-align: center; /* ✅ Ensures text is centered */
+  color: black;
+}
+
+@keyframes flashPink {
+  0% { color: #D72638; }  /* Initial color */
+  50% { color: #FFC1CC; } /* Soft pink */
+  100% { color: #D72638; } /* Back to original */
+}
+
+.unique-link-label {
+  animation: flashPink 1.5s infinite alternate ease-in-out;
+}
+
+.unique-link {
+  color:#0000EE;
+  cursor: pointer;
 }
 
 .unique-link-container {
-  margin-top: 20px;
-  overflow:hidden;
-
-}
-
-#unique-link-label {
- padding: 0;
- margin-right: 50px;
- min-width: 200px;
-}
-
-#unique-link {
-  color: rgb(82, 82, 255);
-  text-align: left;
-
+   overflow:visible;
 }

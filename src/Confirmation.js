@@ -4,17 +4,18 @@ import emailjs from "@emailjs/browser";
 
 const Confirmation = () => {
     const location = useLocation();
-    const parsedData = location.state || {};  // ✅ Ensure parsedData is always defined
-    const message = location.state.userMessage || "No personal message included.";
+    const parsedData = location.state.parsedData;  // ✅ Ensure parsedData is always defined
+    const message =  location.state.userMessage || "No personal message included.";
     const emailSent = useRef(false); 
 
-    console.log("Parsed Data:", parsedData);
+    console.log("Parsed Data in confirmation:", parsedData);
+    console.log(parsedData);
     console.log(message);
 
-    const recipient_email = location.state.parsedData.email;  // ✅ Prevent undefined email
-    const to_name = location.state.parsedData.name;
-    const from_name = location.state.parsedData.theirName;
-    const response = location.state.response;
+    const recipient_email = parsedData.email;  // ✅ Prevent undefined email
+    const to_name = parsedData.name;
+    const from_name = parsedData.theirName;
+    const response = parsedData.answer;
 
     console.log("email: "+recipient_email);
     console.log("to_name: "+to_name);

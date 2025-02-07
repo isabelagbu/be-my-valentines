@@ -8,21 +8,23 @@ const OpenedCard = () => {
     const navigate = useNavigate();
 
     // ✅ Extract data properly
-    const parsedData = location.state || {}; 
-    console.log("Received Data:", parsedData); // Debugging line to check incoming data
-    
-    const senderName = location.state.parsedData.name || "Annabelle"; // Default if missing
-    const note = location.state.parsedData.message || "Sending you lots of love!"; // Default if missing
-    const senderEmail = location.state.parsedData.email;
-    const youtubeLink = location.state.parsedData.youtubeLink; // Extract YouTube link
+    const parsedData = location.state.parsedData; 
+    console.log("Received Data in Opened Card:", parsedData); // Debugging line to check incoming data
+  
+    const senderName = parsedData.name; // Default if missing
+    const note = parsedData.message; // Default if missing
+    const senderEmail = parsedData.email;
+    const youtubeLink = parsedData.youtubeLink; // Extract YouTube link
+
 
     const [fadeClass, setFadeClass] = useState("");
-    const [noBtnSmallFont, setNoBtnSmallFont] = useState("");
-    const [message, setMessage] = useState("Will You Be My Valentine?");
     const [noText, setNoText] = useState("No");
+    const [yesText, setYesText] = useState("Yes");
     const [noBtnInteraction, setNoBtnInteraction] = useState(0);
+    const [response, setResponse] = useState(""); // Store Yes/No response
 
     useEffect(() => {
+       
         setFadeClass("fade-in-bright"); 
 
         if (!youtubeLink) {
@@ -33,25 +35,30 @@ const OpenedCard = () => {
     }, [youtubeLink]); // Runs only when youtubeLink changes
 
     const handleMouseOverNo = () => {
-        setNoBtnInteraction((prev) => prev + 1);
+        setNoText("Please :(");
+    };
+
+    const handleMouseOverYes = () => {
+        setYesText("Yes :)");
+    };
+
+    const handleMouseOutOfYes = () => {
+        setYesText("Yes");
     };
 
     const handleMouseOutOfNo = () => {
-        setNoBtnSmallFont("");
         setNoText("No");
     };
-
-    useEffect(() => {
-        if (noBtnInteraction === 1) {
-            setNoBtnSmallFont("yes-no-btn-small-font");
-            setNoText("Give it a second thought");
-        } else if (noBtnInteraction > 1) {
-            setNoText("Please");
-        }
-    }, [noBtnInteraction]);
-
-    const navigateToLeaveAMessage = () => {
-        navigate("/LeaveAMessage");
+  
+    const navigateToLeaveAMessage = (answer) => {
+        navigate("/LeaveAMessage", {
+            state: {
+                parsedData: {
+                    ...parsedData,  // ✅ Keep existing data
+                     answer,  // ✅ Append Yes/No response
+                }
+            },
+        });
     };
 
     return ( 
@@ -64,20 +71,24 @@ const OpenedCard = () => {
             <div className="card-components">
                 <div className="note">{ note }</div>
                 <div className="text-image-container">
-                    <h2 className="valentines-question">{ message }</h2>
+                    <h2 className="valentines-question">Will You Be My Valentine?</h2>
                     <div className="image-wrapper">
                         <img src="red-rose.png" alt="Red Rose" className="red-rose" />
                     </div>
                 </div>
                 <div className="button-container">
-                    <button onClick={navigateToLeaveAMessage} id="yes-btn" className="yes-no-btn">Yes</button>
                     <button 
-                        onClick={navigateToLeaveAMessage}  
+                    onClick={() => navigateToLeaveAMessage("Yes")}
+                    onMouseEnter={handleMouseOverYes} 
+                    onMouseLeave={handleMouseOutOfYes} 
+                    id="yes-btn"
+                    className="yes-no-btn"> { yesText }</button>
+                    <button 
+                        onClick={() => navigateToLeaveAMessage("No")}
                         onMouseEnter={handleMouseOverNo} 
                         onMouseLeave={handleMouseOutOfNo} 
                         id="no-btn" 
-                        className={`yes-no-btn ${noBtnSmallFont}`}
-                    >
+                        className={`yes-no-btn`} >
                         { noText }
                     </button>
                 </div>
