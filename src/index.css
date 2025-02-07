@@ -118,7 +118,7 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Prevents content from spilling */
+  overflow-y: auto;
   
 }
 
@@ -387,6 +387,7 @@ img {
   max-width: 600px;
   text-align: center;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .input-field::placeholder,
