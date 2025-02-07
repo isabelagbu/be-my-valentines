@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext  } from "react";
 import FloatingHearts from "./FloatingHearts";
 import { useNavigate, useLocation } from "react-router-dom";
-import YouTubeAudioPlayer from "./YouTubeAudioPlayer";
+import AudioContext from "./AudioContext";
 
 const OpenedCard = () => {
+    const { setYouTubeLink } = useContext(AudioContext); // ✅ Store the YouTube link globally
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -24,15 +25,15 @@ const OpenedCard = () => {
     const [response, setResponse] = useState(""); // Store Yes/No response
 
     useEffect(() => {
-       
-        setFadeClass("fade-in-bright"); 
+        setFadeClass("fade-in-bright");
 
-        if (!youtubeLink) {
-            // ✅ Play background music only if YouTube link is missing
+        if (youtubeLink) {
+            setYouTubeLink(youtubeLink); // ✅ Store YouTube link in global context
+        } else {
             const sound = new Audio("/background-music.mp3");
             sound.play().catch((err) => console.log("Audio play failed:", err));
         }
-    }, [youtubeLink]); // Runs only when youtubeLink changes
+    }, [youtubeLink, setYouTubeLink]);
 
     const handleMouseOverNo = () => {
         setNoText("Please :(");
@@ -66,7 +67,7 @@ const OpenedCard = () => {
             <FloatingHearts />
             
             {/* ✅ Play YouTube audio if available */}
-            {youtubeLink && <YouTubeAudioPlayer videoUrl={youtubeLink} />}
+            {youtubeLink && <AudioContext videoUrl={youtubeLink} />}
 
             <div className="card-components">
                 <div className="note">{ note }</div>

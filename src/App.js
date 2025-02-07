@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AudioProvider } from "./AudioContext";
 import ClosedEnvelope from "./ClosedEnvelope";
 import OpenedCard from "./OpenedCard";
 import SenderForm from "./SenderForm";
@@ -9,6 +10,7 @@ const App = () => {
 
   return (  
     <div className="App">
+  <AudioProvider>
    <Router>
       <Routes>
         <Route path="/" element={<SenderForm />} />
@@ -19,6 +21,7 @@ const App = () => {
         <Route path="/Confirmation" element={<Confirmation />} />
       </Routes>
     </Router>
+    </AudioProvider>
   </div>
   );
 }
