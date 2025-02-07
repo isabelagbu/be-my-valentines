@@ -8,9 +8,15 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button {
   font-family: "Pinyon Script", serif;
   font-weight: 400;
   font-style: normal;
-  color: #3f3f3fbf;
+  color: black;
 }
 
+img {
+  user-select: none; /* Prevents selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+}
 
 /* ENVELOPE CSS */
 .envelope-lines {
@@ -22,6 +28,7 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button {
 
 .person-name {
   position: absolute;
+  font-weight:500;
   top: 7vh;
   left: 50%;
   transform: translateX(-50%);

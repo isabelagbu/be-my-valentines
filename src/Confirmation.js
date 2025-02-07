@@ -57,7 +57,7 @@ const Confirmation = () => {
             <div className="card-components">
                 <div className="message-wrapper">
                     <div className="image-wrapper">
-                        <img src="red-rose.png" alt="Red Rose" className="red-rose" />
+                        <img src="red-rose.png" alt="Red Rose" className="red-rose" draggable="false" />
                     </div>
                     <h2 className="valentines-question">
                         Your response has been sent to {to_name} 💌

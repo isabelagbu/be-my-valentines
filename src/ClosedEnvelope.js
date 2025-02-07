@@ -45,7 +45,7 @@ const ClosedEnvelope = () => {
 
   return (
     <div className="closed-envelope">
-      <img className="envelope-lines" src={heartImg} alt="Envelope Lines" />
+      <img className="envelope-lines" src={heartImg} alt="Envelope Lines" draggable="false"/>
       <h2 className="person-name">For {name}</h2>
       <button className="open-button" onClick={handleUserClick}>
         Break Seal

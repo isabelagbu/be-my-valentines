@@ -74,7 +74,7 @@ const OpenedCard = () => {
                 <div className="text-image-container">
                     <h2 className="valentines-question">Will You Be My Valentine?</h2>
                     <div className="image-wrapper">
-                        <img src="red-rose.png" alt="Red Rose" className="red-rose" />
+                        <img src="red-rose.png" alt="Red Rose" className="red-rose" draggable="false"/>
                     </div>
                 </div>
                 <div className="button-container">
