@@ -364,6 +364,7 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button {
 .sender-form-message-box::placeholder {
   font-size: 11px; /* Example size */
   color: #999; /* Lighter text */
+  font-style: italic;
 }
 
 /* Form Groups */
