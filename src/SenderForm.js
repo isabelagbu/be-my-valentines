@@ -54,7 +54,9 @@ const SenderForm = () => {
             console.error("Error shortening link:", error);
             setShortenedLink(longUrl); // Fallback to long link
         }
+            
     };
+    
 
     return (
         <div className="card-background">
