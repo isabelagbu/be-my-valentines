@@ -28,12 +28,25 @@ img {
 
 .person-name {
   position: absolute;
-  font-weight:500;
-  top: 7vh;
+  font-weight: 500;
+  top: 7vh; /* Default top position */
   left: 50%;
   transform: translateX(-50%);
   font-size: clamp(16px, 5vw, 100px);
   transition: top 0.2s ease-in-out;
+}
+
+/* Reduce top space for smaller screens */
+@media (max-width: 500px) {
+  .person-name {
+    top: 4vh; /* Reduce top space on smaller screens */
+  }
+}
+
+@media (max-width: 320px) {
+  .person-name {
+    top: 3vh; /* Further reduce top space on very small screens */
+  }
 }
 
 .open-button {
