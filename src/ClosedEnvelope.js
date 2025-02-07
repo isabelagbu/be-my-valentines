@@ -8,6 +8,7 @@ const ClosedEnvelope = () => {
   const [userClick, setUserClick] = useState(0);
   const [heartImg, setHeartImg] = useState("/env-lines-with-heart.png");
   const [parsedData,setParsedData] = useState({});
+  const [btnText, setBtnText] = useState("Break Seal"); 
   const navigate = useNavigate();
 
   // Decode name from URL when component mounts
@@ -33,7 +34,7 @@ const ClosedEnvelope = () => {
   useEffect(() => {
     if (userClick === 1) {
       setHeartImg("/env-lines-with-heart-broken.png");
-
+      setBtnText("Open");
       // Play sound
       const sound = new Audio("/crumple.mp3");
       sound.play().catch((err) => console.log("Audio play failed:", err));
@@ -48,7 +49,7 @@ const ClosedEnvelope = () => {
       <img className="envelope-lines" src={heartImg} alt="Envelope Lines" draggable="false"/>
       <h2 className="person-name">For {name}</h2>
       <button className="open-button" onClick={handleUserClick}>
-        Break Seal
+        {btnText}
       </button>
     </div>
   );

@@ -55,16 +55,31 @@ img {
   transform: translateX(-50%);
   font-size: clamp(12px, 4vw, 20px); /* ✅ Adjust font size dynamically */
   color: black;
-  width: max-content; /* ✅ Ensures button adjusts to text */
-  max-width: 50%; /* ✅ Prevents excessive width */
-  white-space: nowrap; /* ✅ Prevents text from wrapping */
+  
+  width: 150px; /* ✅ Set a fixed width */
+  height: 36px; /* ✅ Set a fixed height */
+  
+  display: flex; /* ✅ Ensures text stays centered */
+  justify-content: center; /* ✅ Horizontally centers text */
+  align-items: center; /* ✅ Vertically centers text */
+  
+  white-space: nowrap; /* ✅ Prevents text wrapping */
   overflow: hidden; /* ✅ Prevents text from overflowing */
-  text-overflow: ellipsis; /* ✅ Adds "..." if text gets too long */
-  padding: 5px 40px; /* ✅ Maintains spacing */
+  text-overflow: ellipsis; /* ✅ Adds "..." if text is too long */
+  
   background-color: #FFF1EF;
   border: 1px solid #635A5A;
   border-radius: 6px;
   cursor: pointer;
+}
+
+/* ✅ Ensure button remains a fixed size on mobile */
+@media (max-width: 500px) {
+  .open-button {
+    width: 120px; /* Adjust for smaller screens */
+    height: 35px;
+    font-size: clamp(10px, 3vw, 16px);
+  }
 }
 
 /*Transition*/
