@@ -22,7 +22,7 @@ const SenderForm = () => {
         const longUrl = `${window.location.origin}/valentine/closed-envelope/${encodedData}`;
         setLongLink(longUrl); // Store original long link first
 
-        console.log("Generated Link:", longUrl);
+        //console.log("Generated Link:", longUrl);
 
         const requestBody = {
             url: longUrl,
@@ -30,7 +30,7 @@ const SenderForm = () => {
         };
 
         try {
-            console.log("TINY URL API KEY: " + process.env.REACT_APP_TINYURL_API_KEY);
+            //console.log("TINY URL API KEY: " + process.env.REACT_APP_TINYURL_API_KEY);
             const response = await fetch(`https://api.tinyurl.com/create?api_token=${process.env.REACT_APP_TINYURL_API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -40,7 +40,7 @@ const SenderForm = () => {
             const result = await response.json();
             if (result?.data?.tiny_url) {
                 setShortenedLink(result.data.tiny_url);
-                console.log("Shortened Link:", result.data.tiny_url);
+               // console.log("Shortened Link:", result.data.tiny_url);
 
                 // Copy to clipboard
                 navigator.clipboard.writeText(result.data.tiny_url).then(() => {

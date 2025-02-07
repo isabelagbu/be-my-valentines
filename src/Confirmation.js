@@ -8,19 +8,19 @@ const Confirmation = () => {
     const message =  location.state.userMessage || "No personal message included.";
     const emailSent = useRef(false); 
 
-    console.log("Parsed Data in confirmation:", parsedData);
-    console.log(parsedData);
-    console.log(message);
+   // console.log("Parsed Data in confirmation:", parsedData);
+   // console.log(parsedData);
+   // console.log(message);
 
     const recipient_email = parsedData.email;  // ✅ Prevent undefined email
     const to_name = parsedData.name;
     const from_name = parsedData.theirName;
     const response = parsedData.answer;
 
-    console.log("email: "+recipient_email);
-    console.log("to_name: "+to_name);
-    console.log("from_name: "+from_name);
-    console.log("response: "+response);
+   // console.log("email: "+recipient_email);
+  //  console.log("to_name: "+to_name);
+   // console.log("from_name: "+from_name);
+  //  console.log("response: "+response);
 
     useEffect(() => {
       if(!emailSent.current) {

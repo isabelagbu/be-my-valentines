@@ -15,12 +15,12 @@ const ClosedEnvelope = () => {
   useEffect(() => {
     if (encodedData) {
         try {
-          console.log("encoded url in closed envelope: ", encodedData);
+          //console.log("encoded url in closed envelope: ", encodedData);
             const decodedJson = decodeURIComponent(atob(encodedData)); // Decode Base64 safely
             const parsedData = JSON.parse(decodedJson);
             setParsedData(parsedData);
             setName(parsedData.theirName);
-            console.log("parsed data in closed envelope: ", parsedData);
+           // console.log("parsed data in closed envelope: ", parsedData);
         } catch (error) {
             console.error("Error decoding URL data:", error);
         }
