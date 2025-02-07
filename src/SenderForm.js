@@ -74,7 +74,7 @@ const SenderForm = () => {
                 </div>
                 <div className="form-group">
                     <label>Youtube Song Link:</label>
-                    <input placeholder="Please enter YouTube Song Link that plays when card is opened. (optional)" type="url" className="input-field" value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} />
+                    <input placeholder="Please enter the YouTube Song Link to play when the card is opened. (optional)" type="url" className="input-field" value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} />
                 </div>
                 <div className="form-group" id="val-msg-div">
                     <label id="msg-box-label">Custom Message:</label>

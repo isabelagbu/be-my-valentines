@@ -354,6 +354,18 @@ h1, h2, h3, .yes-no-btn,.open-button,a,.send-button, label, .generate-button {
   padding: 20px;
 }
 
+.input-field::placeholder,
+.textarea-field::placeholder {
+  font-size: 11px; /* Adjust the size */
+  color: gray; /* Optional: Change placeholder color */
+  font-style: italic; /* Optional: Change font style */
+}
+
+.sender-form-message-box::placeholder {
+  font-size: 16px; /* Example size */
+  color: #999; /* Lighter text */
+}
+
 /* Form Groups */
 .form-group {
   display: flex;
